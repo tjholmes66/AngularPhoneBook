@@ -1,0 +1,30 @@
+package com.tomholmes.angularjs.phonebook.server.dao;
+
+import java.util.List;
+
+import com.tomholmes.angularjs.phonebook.domain.UserEntity;
+
+public interface UserDao
+{
+    public UserEntity createUserEntity(UserEntity user);
+
+    public UserEntity updateUserEntity(UserEntity user);
+
+    public void deleteUserEntity(long userId);
+
+    public void deleteUserEntity(UserEntity user);
+
+    public List<UserEntity> getAllUserEntitys();
+
+    // Retrieve
+    public UserEntity getUserEntity(long id);
+
+    public List<UserEntity> getUsersEntity(UserEntity exampleEntity);
+
+    public List<UserEntity> getUserEntityByLogin(String username, String password);
+
+    List<UserEntity> getUserEntityByEmail(String email);
+
+    List<UserEntity> getUserEntityByUsername(String username);
+
+}
