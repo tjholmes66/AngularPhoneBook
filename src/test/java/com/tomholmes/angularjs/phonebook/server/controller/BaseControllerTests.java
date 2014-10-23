@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations =
-{ "classpath:/spring/classpath:applicationContext.xml" })
+{ "classpath:/spring/classpath:/spring/angular-context.xml" })
 @Transactional
 public class BaseControllerTests extends TestCase
 {

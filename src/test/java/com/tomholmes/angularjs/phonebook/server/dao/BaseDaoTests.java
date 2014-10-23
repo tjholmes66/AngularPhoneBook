@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations =
-{ "classpath*:applicationContext.xml" })
+{ "classpath:/spring/angular-context.xml" })
 @Transactional
 public class BaseDaoTests extends TestCase
 {
