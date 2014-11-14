@@ -16,13 +16,13 @@
 			<value>com.mysql.jdbc.Driver</value>
 		</property>
 		<property name="url">
-			<value>jdbc:mysql://localhost:3306/phonebook</value>
+			<value>jdbc:mysql://173.194.241.153:3306/phonebook</value>
 		</property>
 		<property name="username">
-			<value>operator</value>
+			<value>root</value>
 		</property>
 		<property name="password">
-			<value>passw0rd</value>
+			<value>huskies5</value>
 		</property>
 
 	</bean>
