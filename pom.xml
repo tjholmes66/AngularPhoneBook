@@ -241,6 +241,12 @@
 			<version>1.4.7</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
+		
 	</dependencies>
   
 	<packaging>war</packaging>
