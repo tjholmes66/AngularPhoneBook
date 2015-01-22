@@ -16,13 +16,13 @@
 			<value>com.mysql.jdbc.Driver</value>
 		</property>
 		<property name="url">
-			<value>jdbc:mysql://173.194.241.153:3306/phonebook</value>
+			<value>jdbc:mysql://localhost:3306/phonebook</value>
 		</property>
 		<property name="username">
-			<value>root</value>
+			<value>operator</value>
 		</property>
 		<property name="password">
-			<value>huskies5</value>
+			<value>passw0rd</value>
 		</property>
 
 	</bean>
@@ -48,6 +48,7 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
+	
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="mail.tomholmes.net" />
 		<property name="port" value="587" />
@@ -67,11 +68,11 @@
 		<property name="mailSender" ref="mailSender" />
 	</bean>
 	
-	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
-	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
-	
 	<context:annotation-config />
 	<context:component-scan base-package="com.tomholmes.angularjs" />
+	
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
 	<bean id = "transactionManager" class = "org.springframework.orm.hibernate4.HibernateTransactionManager">
          <property name = "sessionFactory" ref = "sessionFactory" />
