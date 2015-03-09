@@ -3,7 +3,11 @@ package com.tomholmes.angularjs.phonebook.shared.util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
+@Service("sendEmailService")
 public class SendEmailService implements ISendEmailService
 {
     @Autowired

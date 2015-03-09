@@ -2,7 +2,8 @@ var userManagerModule = angular.module('userManagerApp', ['ngAnimate']);
 
 userManagerModule.controller('userManagerController', function ($scope,$http) {
  
- var urlBase="http://localhost:8080/UserManagerApp";
+ var urlBase="http://localhost:8080/angularjs-phone-book";
+ 
  $scope.toggle=true;
  $scope.selection = [];
  $scope.statuses=['ACTIVE','COMPLETED'];

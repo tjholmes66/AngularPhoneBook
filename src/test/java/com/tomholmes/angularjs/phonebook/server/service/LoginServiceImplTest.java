@@ -12,13 +12,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tomholmes.angularjs.phonebook.domain.UserEntity;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations =
-{ "classpath*:applicationContext.xml" })
-public class LoginServiceImplTests extends TestCase
+public class LoginServiceImplTest extends BaseServiceImplTests
 {
 
-    private static final Log logger = LogFactory.getLog(LoginServiceImplTests.class);
+    private static final Log logger = LogFactory.getLog(LoginServiceImplTest.class);
 
     @Autowired
     private ILoginService service;

@@ -9,6 +9,12 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
+	
+	<context:annotation-config />
+	<context:component-scan base-package="com.tomholmes.angularjs.phonebook" />
+	
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -64,15 +70,11 @@
 		</property>
 	</bean>
  
+	<!--  
 	<bean id="sendMailService" class="com.tomholmes.angularjs.phonebook.shared.util.SendEmailService">
 		<property name="mailSender" ref="mailSender" />
 	</bean>
-	
-	<context:annotation-config />
-	<context:component-scan base-package="com.tomholmes.angularjs" />
-	
-	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
-	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+	-->
 
 	<bean id = "transactionManager" class = "org.springframework.orm.hibernate4.HibernateTransactionManager">
          <property name = "sessionFactory" ref = "sessionFactory" />

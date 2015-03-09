@@ -22,11 +22,21 @@ public class UserController
 
     @Autowired
     private IUserService service;
+    
+    @RequestMapping(value = "", method = RequestMethod.GET, headers = "Accept=application/json")
+    public @ResponseBody
+    ArrayList<UserEntity> getUserList()
+    {
+        System.out.println("UserController: getUserList: START");
+        ArrayList<UserEntity> userEntityList = (ArrayList) service.getAllUsers();
+        return userEntityList;
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody
     ArrayList<UserEntity> getAllUsers()
     {
+        System.out.println("UserController: getAllUsers: START");
         ArrayList<UserEntity> userEntityList = (ArrayList) service.getAllUsers();
         return userEntityList;
     }

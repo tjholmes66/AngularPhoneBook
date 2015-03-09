@@ -13,13 +13,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.tomholmes.angularjs.phonebook.domain.PositionEntity;
 import com.tomholmes.angularjs.phonebook.domain.UserEntity;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations =
-{ "classpath*:applicationContext.xml" })
-public class UserServiceImplTests extends TestCase
+public class UserServiceImplTest extends BaseServiceImplTests
 {
 
-    private static final Log logger = LogFactory.getLog(UserServiceImplTests.class);
+    private static final Log logger = LogFactory.getLog(UserServiceImplTest.class);
 
     @Autowired
     private IUserService service;

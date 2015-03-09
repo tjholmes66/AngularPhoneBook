@@ -58,7 +58,6 @@ public class ContactEntity implements Serializable
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-// `prefix` varchar(45) DEFAULT NULL,
     @Column(name = "prefix")
     private String prefix;
 

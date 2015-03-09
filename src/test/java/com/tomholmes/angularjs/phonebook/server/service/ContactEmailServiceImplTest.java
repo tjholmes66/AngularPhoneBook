@@ -17,12 +17,9 @@ import com.tomholmes.angularjs.phonebook.domain.ContactEmailEntity;
 import com.tomholmes.angularjs.phonebook.domain.ContactEntity;
 import com.tomholmes.angularjs.phonebook.domain.EmailTypeEntity;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations =
-{ "classpath*:applicationContext.xml" })
-public class ContactEmailServiceImplTests extends TestCase
+public class ContactEmailServiceImplTest extends BaseServiceImplTests
 {
-    private static final Log logger = LogFactory.getLog(ContactEmailServiceImplTests.class);
+    private static final Log logger = LogFactory.getLog(ContactEmailServiceImplTest.class);
 
     @Autowired
     private IContactEmailService service;

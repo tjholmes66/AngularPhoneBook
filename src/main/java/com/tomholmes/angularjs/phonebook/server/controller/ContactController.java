@@ -20,9 +20,17 @@ public class ContactController
     @Autowired
     private IContactService service;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody
-    ArrayList<ContactEntity> getAllContacts()
+    ArrayList<ContactEntity> getContactList1()
+    {
+        ArrayList<ContactEntity> contactEntityList = (ArrayList) service.getAllContacts();
+        return contactEntityList;
+    }
+    
+    @RequestMapping(value = "/", method = RequestMethod.GET, headers = "Accept=application/json")
+    public @ResponseBody
+    ArrayList<ContactEntity> getContactList2()
     {
         ArrayList<ContactEntity> contactEntityList = (ArrayList) service.getAllContacts();
         return contactEntityList;

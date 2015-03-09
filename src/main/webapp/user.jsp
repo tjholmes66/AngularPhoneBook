@@ -13,7 +13,24 @@
 <script data-require="angular.js@*" data-semver="1.2.13"
 	src="http://code.angularjs.org/1.2.13/angular.js"></script>
 	
-<script type="text/javascript" src="./js/app.js"></script>
+<script type="text/javascript" src="./js/phonebook.js"></script>
+
+<script type="text/javascript">
+
+$scope.engineer = {
+	    name: "Dani",
+	    currentActivityId: 3
+	};
+	 
+	$scope.activities =
+	[
+	    { id: 1, type: "Work", name: "Writing code" },
+	    { id: 2, type: "Work", name: "Testing code" },
+	    { id: 3, type: "Work", name: "Fixing bugs" },
+	    { id: 4, type: "Play", name: "Dancing" }
+	];
+
+</script>
 
 </head>
 
@@ -97,5 +114,11 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	<select ng-model="engineer.currentActivityId"
+        data-ng-options="a.id as a.name group by a.type for a in activities">               
+	</select>
+	
 </body>
 </html>

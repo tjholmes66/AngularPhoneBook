@@ -16,13 +16,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.tomholmes.angularjs.phonebook.domain.ContactEntity;
 import com.tomholmes.angularjs.phonebook.domain.UserEntity;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations =
-{ "classpath*:applicationContext.xml" })
-public class ContactServiceImplTests extends TestCase
+public class ContactServiceImplTest extends BaseServiceImplTests
 {
 
-    private static final Log logger = LogFactory.getLog(ContactServiceImplTests.class);
+    private static final Log logger = LogFactory.getLog(ContactServiceImplTest.class);
 
     @Autowired
     private IContactService service;

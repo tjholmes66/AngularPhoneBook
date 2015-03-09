@@ -57,8 +57,7 @@ public class LoginController
 
             // sendMail(String from, String to, String subject, String msg)
 
-            emailService.sendMail("phonebook_app@tomholmes.net", userEntity.getEmail(),
-                "Phonebook App - Found Username", msgBody);
+            // emailService.sendMail("phonebook_app@tomholmes.net", userEntity.getEmail(), "Phonebook App - Found Username", msgBody);
         }
         System.out.println("LoginController: login: FINISH: userEntity=" + userEntity);
         return userEntity;
