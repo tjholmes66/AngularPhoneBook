@@ -11,9 +11,10 @@ $(document).ready(function()
 
 	function Hello($scope, $http)
 	{
-	    $http.get('http://localhost:8080/angularjs-phone-book/users').
+	    $http.get('http://localhost:8080/angularjs-phone-book/rest/users').
 	        success(function(data)
 	        {
+	        	alert(data);
 	            $scope.greeting = data;
 	        });
 	}
@@ -38,6 +39,14 @@ $(document).ready(function()
 	<div ng-controller="Hello">
 		<p>The content is {{greeting.content}}</p>
 	</div>
+	
+	<br/>
+	<br/>
+	<br/>
+	
+	<select ng-model="user"
+        data-ng-options="user.userId as a.username group by a.type for a in users">               
+	</select>
 	
 </body>
 </html>

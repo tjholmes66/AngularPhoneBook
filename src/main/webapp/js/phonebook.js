@@ -1,94 +1,120 @@
-var userManagerModule = angular.module('userManagerApp', ['ngAnimate']);
+var userApp = angular.module("userApp", [ 'ngRoute', 'ngResource' ]);
 
-userManagerModule.controller('userManagerController', function ($scope,$http) {
- 
- var urlBase="http://localhost:8080/angularjs-phone-book";
- 
- $scope.toggle=true;
- $scope.selection = [];
- $scope.statuses=['ACTIVE','COMPLETED'];
- $scope.priorities=['HIGH','LOW','MEDIUM'];
- $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
- 
- //get all users and display initially
- $http.get(urlBase+'/users').
-     success(function(data) {
-         $scope.users = data;
-         for(var i=0;i<$scope.users.length;i++){
-             if($scope.users[i].userStatus=='COMPLETED'){
-              $scope.selection.push($scope.users[i].userId);
-         }
-         }
+userApp.config(function($routeProvider)
+{
+	$routeProvider.when('/users/new', 
+	{
+		controller : 'NewUserCtrl',templateUrl : 'views/newuser.html'
+	}).when('/users/:userId',
+	{
+		controller : 'UsersByIdCtrl',
+		templateUrl : 'views/userbyid.html'	
+	}).when('/users',
+	{
+		controller : 'UsersCtrl',
+		templateUrl : 'views/users.html'	
+	}).otherwise(
+	{
+		controller : 'SpaCtrl',
+		templateUrl: 'views/spahome.html'
     });
- 
- //add a new user
- $scope.addUser = function addUser() {
-  if($scope.userName=="" || $scope.userDesc=="" || $scope.userPriority == "" || $scope.userStatus == ""){
-   alert("Insufficient Data! Please provide values for user name, description, priortiy and status");
-  }
-  else{
-   $http.post(urlBase + '/users/insert/' +$scope.userName+'/'+$scope.userDesc+'/'+$scope.userPriority+'/'+$scope.userStatus).
-    success(function(data) {
-    alert("User added");
-    $scope.users = data; 
-    $scope.userName="";
-    $scope.userDesc="";
-    $scope.userPriority="";
-    $scope.userStatus="";
-    $scope.toggle='!toggle';    
-      });
-  }
- };
-  
- // toggle selection for a given user by user id
-   $scope.toggleSelection = function toggleSelection(userId) {
-     var idx = $scope.selection.indexOf(userId);
-
-     // is currently selected
-     if (idx > -1) {
-       $http.post(urlBase + '/users/' +userId+'/ACTIVE').
-    success(function(data) {
-    alert("User unmarked");
-    $scope.users = data;         
-      });
-       $scope.selection.splice(idx, 1);
-     }
-
-     // is newly selected
-     else {
-       $http.post(urlBase + '/users/' +userId+'/COMPLETED').
-    success(function(data) {
-    alert("User marked completed");
-    $scope.users = data;
-      });
-       $scope.selection.push(userId);
-     }
-   };
-   
- 
- // Archive Completed Users
-   $scope.archiveUsers = function archiveUsers() {
-    $http.post(urlBase + '/users/archive/' + $scope.selection).
-    success(function(data) {
-     $scope.users = data;
-         alert("Successfully Archived");
-      });
-   };
- 
 });
 
-//Angularjs Directive for confirm dialog box
-userManagerModule.directive('ngConfirmClick', [
- function(){
-         return {
-             link: function (scope, element, attr) {
-                 var msg = attr.ngConfirmClick || "Are you sure?";
-                 var clickAction = attr.confirmedClick;
-                 element.bind('click',function (event) {
-                     if ( window.confirm(msg) ) {
-                         scope.$eval(clickAction);
-                     }
-                 });
-             }
-         };
- }]);
+
+userApp.factory( 'userservice', [ '$resource', function( $resource )
+{
+	return new User( $resource );
+}] );
+ 
+function User( resource )
+{ 
+	this.resource = resource; 
+ 
+	this.createUser = function ( user, scope )
+	{
+		// 
+		// Save Action Method
+		//
+		var User = resource('/users/new');
+		
+		User.save(user, function(response)
+		{
+			scope.message = response.message;
+		});		
+	}
+ 
+	this.getUser = function ( id, scope )
+	{
+		//
+		// GET Action Method
+		//
+		var User = resource('http://localhost:8080/angularjs-phone-book/rest/users/userId/:userId', {userId:'@userId'});
+		
+		User.get( {userId:id}, function(user)
+		{
+			scope.user = user;
+		})
+	}
+ 
+	this.getUsers = function( scope )
+	{
+		//
+		// Query Action Method
+		//
+		var Users = resource('http://localhost:8080/angularjs-phone-book/rest/users');
+		
+		Users.query(function(users)
+		{
+			scope.users = users;
+		});
+	}
+}
+
+
+
+//Controller when the main page/view loads
+userApp.controller("SpaCtrl", [ '$scope', function($scope) {			
+} ]);
+// Controller for All Users View
+userApp.controller("UsersCtrl", [ '$scope','userservice', function($scope, userservice) {	
+	userservice.getUsers( $scope );		
+} ]);
+// Controller for New User View
+userApp.controller("NewUserCtrl", [ '$scope','userservice', function($scope, userservice) {				
+ 
+	userservice.getUsers( $scope );	
+ 
+	$scope.createNewUser = function(){
+		var newuser = { 'firstname':$scope.firstname, 'lastname': $scope.lastname, 'address':$scope.address, 'email':$scope.email };
+		// Call UserService to create a new user
+		//
+		userservice.createUser ( newuser, $scope );
+ 
+		// Push new user to existing table column
+		//
+		$scope.users.push( newuser );
+		// Reset fields values
+		//
+		$scope.firstname='';
+		$scope.lastname='';
+		$scope.address='';
+		$scope.email='';
+	};		
+} ]);
+// Controller for Individual User View
+userApp.controller("UsersByIdCtrl", [ '$scope','userservice', '$routeParams', function($scope, userservice, $routeParams) {	
+	userservice.getUser($routeParams.userId, $scope);	
+} ]);
+
+
+
+
+/*
+ * function getUserList($scope, $http) {
+ * $http.get('http://localhost:8080/angularjs-phone-book/rest/users').
+ * success(function(data) { alert(data); $scope.users = data; }); }
+ * 
+ * function getUserByUserId($scope, $http) {
+ * $http.get('http://localhost:8080/angularjs-phone-book/rest/users/userId/1').
+ * success(function(data) { $scope.user = data; }); }
+ */

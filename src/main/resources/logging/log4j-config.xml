@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-<log4j:configuration debug="true" xmlns:log4j="http://jakarta.apache.org/log4j/">
-
-	<!-- Asynchronous appender queues BufferSize logging events -->
-	<appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
-		<param name="BufferSize" value="256" />
-		<appender-ref ref="FILE" />
-	</appender>
+<!-- Appenders -->
+<appender name="console" class="org.apache.log4j.ConsoleAppender">
+    <param name="Target" value="System.out" />
+    <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%-5p: %c - %m%n" />
+    </layout>
+</appender>
 
 	<!--
 		File appender. Outputs a log file which is rolled every day. Allows
@@ -18,7 +20,7 @@
 			Use Java option -Dlog.dir=<directory> to output logs in the desired
 			<directory>
 		-->
-		<param name="File" value="${log.dir}/cosmic.log" />
+		<param name="File" value="${log.dir}/angularjs-phone-book.log" />
 		<!-- The date pattern below controls the rollover schedule -->
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -28,38 +30,36 @@
 		</layout>
 	</appender>
 
-	<!--
-		Standard out appender. Use only for local debugging during
-		development. If you enable the STDOUT appender, please do not check
-		this file into StarTeam.
-	-->
-	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
-		<param name="Target" value="System.out"/> 
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d %-5p [%t] {%x} %C{2} (%F:%L) - %m%n" />
-		</layout>
-	</appender>
-	
-	<!--  Set debug level logging for our classes. -->
-	<logger name="com.tomholmes.angularjs">
-		<level value="debug" />
-	</logger>
+<!-- Application Loggers -->
+<logger name="com.tomholmes.angularjs">
+    <level value="debug" />
+    <appender-ref ref="console" />
+</logger>
 
-	<root>
-		<!--
-			Set info level logging for ALL classes. Change this to debug to get
-			debug output from all classes, including external libraries. If you 
-			make such a change locally, please do not check it into StarTeam.
-		-->
-		<priority value ="info" /> 
-		<!-- Set the line below to STDOUT to see logging output           -->
-		<!-- on standard out, for example during development on a         -->
-		<!-- local desktop.                                               -->
-		<!-- Set the line below to FILE for use on a remote system        -->
-		<!-- and all logging output will be output to cosmic.log,          -->
-		<!-- which will roll over at midnight every day.                  -->
-		<!-- You may have to restart the webapp for the changes to take.  -->
-		<appender-ref ref="FILE" />
-	</root>
+<!-- 3rdparty Loggers -->
+<logger name="org.springframework.core">
+    <level value="debug" />
+    <appender-ref ref="console" />
+</logger>
+
+<logger name="org.springframework.beans">
+    <level value="debug" />      
+</logger>
+
+<logger name="org.springframework.context">
+    <level value="debug" />
+    <appender-ref ref="console" />
+</logger>
+
+<logger name="org.springframework.web">
+     <level value="debug" /> 
+     <appender-ref ref="console" />     
+ </logger>
+
+<!-- Root Logger -->
+<root>
+    <priority value="all" />
+    <appender-ref ref="console" />
+</root>
 
 </log4j:configuration>

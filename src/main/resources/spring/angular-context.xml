@@ -10,12 +10,12 @@
 
 	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
 	
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+	
 	<context:annotation-config />
 	<context:component-scan base-package="com.tomholmes.angularjs.phonebook" />
 	
-	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
-	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
-
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName">
