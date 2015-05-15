@@ -47,8 +47,8 @@ function User( resource )
 	{
 		//
 		// GET Action Method
-		//
-		var User = resource('http://localhost:8080/angularjs-phone-book/rest/users/userId/:userId', {userId:'@userId'});
+		//                   http://localhost:8080/phonebook-backend-ws/rest/users
+		var User = resource('http://localhost:8080/phonebook-backend-ws/rest/users/userId/:userId', {userId:'@userId'});
 		
 		User.get( {userId:id}, function(user)
 		{
@@ -61,7 +61,7 @@ function User( resource )
 		//
 		// Query Action Method
 		//
-		var Users = resource('http://localhost:8080/angularjs-phone-book/rest/users');
+		var Users = resource('http://localhost:8080/phonebook-backend-ws/rest/users');
 		
 		Users.query(function(users)
 		{
